@@ -29,7 +29,6 @@ provider "azurerm" {
 data "azurerm_key_vault" "fpl_key_vault" {
   name                = local.fpl_key_vault
   resource_group_name = local.fpl_key_vault_rg
-  jenkins_object_id   = data.azurerm_user_assigned_identity.jenkins.principal_id
 }
 
 #data "azurerm_key_vault_secret" "s2s_client_id" {
@@ -55,9 +54,4 @@ data "azurerm_key_vault" "s2s_key_vault" {
 data "azurerm_key_vault_secret" "s2s_client_secret" {
   name         = "microservicekey-api-gw"
   key_vault_id = data.azurerm_key_vault.s2s_key_vault.id
-}
-
-data "azurerm_user_assigned_identity" "jenkins" {
-  name                = "jenkins-${var.env}-mi"
-  resource_group_name = "managed-identities-${var.env}-rg"
 }
